@@ -10,6 +10,7 @@ module.exports = app => {
 
     app.use(morgan('dev'));
     app.use(multer({dest: path.join(__dirname,'../public/upload/temp')}).single('video'));
+    app.use('/public', express.static(path.join(__dirname, '../public')));
     app.use(express.urlencoded({extended: false}));
     app.use(express.json());
     videoRoutes(app);

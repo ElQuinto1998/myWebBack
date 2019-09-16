@@ -14,7 +14,6 @@ module.exports = app => {
     router.post('/videos/:id_video/comment', video.comment);
     router.delete('/videos/:id_video', video.remove);
 
-
     app.use(router);
 
 };
