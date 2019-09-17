@@ -24,22 +24,19 @@ controller.getAll = async (req, res) => {
 controller.getById = async (req, res) => {
 
     const viewModel = {video: {}, comments: {}};
-    let video = await Video.findOne({filename: {$regex: req.params.id_video}});
+    let video = await Video.findOne({_id: req.params.id_video});
 
     if(!video){
         res.send({error: 'Video not found'});
     }else {
 
         video.views += 1;
-        viewModel.video = video;
         await video.save();
         let comments = await Comment.find({video_id: video._id});
 
-        viewModel.comments = comments;
-
         video.filename = "http://localhost:3000/public/upload/" + video.filename;
 
-        res.send({data: viewModel});
+        res.send({video: video, comments: comments});
     }
 
 
