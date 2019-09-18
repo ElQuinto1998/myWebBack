@@ -23,7 +23,6 @@ controller.getAll = async (req, res) => {
 
 controller.getById = async (req, res) => {
 
-    const viewModel = {video: {}, comments: {}};
     let video = await Video.findOne({_id: req.params.id_video});
 
     if(!video){
@@ -93,7 +92,7 @@ controller.remove = async (req, res) => {
 };
 
 controller.like = async (req, res) => {
-    let video = await Video.findOne({filename: {$regex: req.params.id_video}});
+    let video = await Video.findOne({_id: req.params.id_video});
 
     if(video){
         video.likes += 1;
@@ -106,14 +105,15 @@ controller.like = async (req, res) => {
 
 controller.comment = async (req, res) => {
 
-    let video = await Video.findOne({filename: {$regex: req.params.id_video}});
+    let video = await Video.findOne({_id: {$regex: req.params.id_video}});
 
     if(video){
 
         const newComment = new Comment(req.body);
-        newComment.avatar = "https://image.freepik.com/vector-gratis/perfil-avatar-hombre-icono-redondo_24640-14044.jpg";
+        console.log(newComment);
+        /*newComment.avatar = "https://image.freepik.com/vector-gratis/perfil-avatar-hombre-icono-redondo_24640-14044.jpg";
         newComment.video_id = video._id;
-        await newComment.save();
+        await newComment.save();*/
 
         res.send({Ok: "Comment saved successfully!"});
     }
