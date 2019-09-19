@@ -105,17 +105,17 @@ controller.like = async (req, res) => {
 
 controller.comment = async (req, res) => {
 
-    let video = await Video.findOne({_id: {$regex: req.params.id_video}});
+    let video = await Video.findOne({_id: req.params.id_video});
 
     if(video){
 
         const newComment = new Comment(req.body);
-        console.log(newComment);
-        /*newComment.avatar = "https://image.freepik.com/vector-gratis/perfil-avatar-hombre-icono-redondo_24640-14044.jpg";
+        newComment.avatar = "https://image.freepik.com/vector-gratis/perfil-avatar-hombre-icono-redondo_24640-14044.jpg";
         newComment.video_id = video._id;
-        await newComment.save();*/
+        console.log(newComment);
+        await newComment.save();
 
-        res.send({Ok: "Comment saved successfully!"});
+        res.send({message: "Comment saved successfully!"});
     }
 
 
