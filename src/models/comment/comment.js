@@ -3,7 +3,7 @@ const { Schema, model } = mongoose;
 const { ObjectId } = Schema;
 
 const CommentSchema = new Schema({
-    video_id: {type: ObjectId},
+    media_id: {type: ObjectId},
     name: {type: String},
     email: {type: String},
     message: {type: String},

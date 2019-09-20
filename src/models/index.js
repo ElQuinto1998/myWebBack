@@ -1,6 +1,6 @@
 module.exports = {
 
-    Video: require('./video/video'),
+    Multimedia: require('./multimedia/multimedia'),
     Comment: require('./comment/comment')
 
 };
