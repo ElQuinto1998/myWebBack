@@ -9,13 +9,23 @@ const controller = {};
 controller.getAll = async (req, res) => {
 
     const files = await Multimedia.find({type_media: req.params.type_media}).sort({timestamp: -1});
+    let likesCount = 0;
+    let viewsCount = 0;
 
     for (let i = 0; i < files.length; i++) {
         files[i].filename = "http://localhost:3000/public/upload/" + files[i].filename;
+        likesCount += files[i].likes;
+        viewsCount += files[i].views;
     }
 
-    res.send({files: files});
+    res.send({files: files, likes: likesCount, views: viewsCount});
 
+};
+
+controller.getPopulars = async (req, res) => {
+
+    const files = await Multimedia.find({type_media: req.params.type_media}).sort({views: -1}).limit(3);
+    res.send({files: files});
 };
 
 controller.getById = async (req, res) => {
